@@ -1,0 +1,221 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manag'it</title>
+
+    <!-- Google font import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- NavBar section -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-pill">
+                <!-- Logo -->
+                <a href="" class="logo">
+                    <img src="Landing-assets/Landing-assets/All-Logos/logo.svg" alt="Manag'it">
+                </a>
+    
+                <div class="nav-content">
+                    <!-- Nav links -->
+                    <ul class="nav-links">
+                        <li><a href="">Home</a></li>
+                        <li><a href="">About Us</a></li>
+                        <li><a href="">Features</a></li>
+                    </ul>
+
+                    <!-- Auth buttons -->
+                    <div class="auth-section">
+                        <a href="login.html" class="login-link">Login</a>
+                        <a href="signup.html" class="btn-signup">Sign up</a>
+                    </div>
+                </div>
+
+                <!-- Hamburger menu toggle -->
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <section class="hero">
+        <!-- hero background image -->
+        <img src="Landing-assets/Landing-assets/All-Graphic-Elements/Hero-BG-Element.png" alt="hero">
+
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <p class="hero-sub">Welcome to Manag'it</p>
+                <h1 class="hero-title">Manage Your Work <br> Efficiently</h1>
+
+                <a href=""class="cta-btn">
+                    Let's Start Manage
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Trusted by section -->
+     <section class="trusted-by">
+        <!-- Arrow down -->
+        <div class="arrow-down">
+            <svg width="24" height="40" viewBox="0 0 24 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="0" x2="12" y2="38"></line>
+                <polyline points="18 32 12 38 6 32"></polyline>
+            </svg>
+        </div>
+
+        <!-- Orange line -->
+         <div class="orange-divider"></div>
+
+        <!-- Title -->
+         <h2 class="trusted-title">Trusted By</h2>
+
+        <!-- Logos container -->
+         <div class="logos-container">
+            <img src="Landing-assets/Landing-assets/All-Logos/Logo-Google.svg" alt="Google">
+            <img src="Landing-assets/Landing-assets/All-Logos/Logo-Slack.svg" alt="Slack">
+            <img src="Landing-assets/Landing-assets/All-Logos/Logo-Microsoft.svg" alt="Microsoft">
+            <img src="Landing-assets/Landing-assets/All-Logos/Logo-Spotify.svg" alt="Spotify">
+            <img src="Landing-assets/Landing-assets/All-Logos/Logo-Adobe.svg" alt="Adobe">
+         </div>
+     </section>
+
+
+     <!-- About us section -->
+     <section class="about-us">
+        <div class="about-container">
+            <h2 class="about-title">Who are we ?</h2>
+
+            <div class="about-content-wrapper">
+                <div class="about-graph">
+                    <img src="Landing-assets/Landing-assets/All-Graphic-Elements/Stats.png" alt="">
+                </div>
+
+                <div class="about-info">
+                    <div class="stats-container">
+                        <div class="stat">
+                            <span class="stat-num">120+</span>
+                            <span class="stat-text">Projects <br> Completed</span>
+                        </div>
+
+                        <div class="stat">
+                            <span class="stat-num">50K+</span>
+                            <span class="stat-text">Active <br> Users</span>
+                        </div>
+                    </div>
+
+                    <p class="about-desc">
+                        We provide an all-in-one project management platform that simplifies planning, improves collaboration, and keeps every project on track. Work smarter, stay organized, and deliver results with confidence.
+                    </p>
+
+                    <a href="" class="btn-start">Ready to Start?</a>
+                </div>
+            </div>
+        </div>
+     </section>
+
+     <!-- Features section -->
+      <section class="features">
+        <div class="features-container">
+            <h2 class="features-title">Our Features</h2>
+
+            <div class="features-grid">
+                <!-- Card 1 -->
+                 <div class="feature-card">
+                    <img src="Landing-assets/Landing-assets/All-Icons/Icon-clipboard.svg" alt="Task Managemnet" class="features-icon">
+                    <p class="feature-desc">Organize tasks, set priorities, assign team members, and track progress effortlessly.</p>
+                    <div class="feature-divider"></div>
+                    <h3 class="feature-name">Smart Task Management</h3>
+                 </div>
+
+                <!-- Card 2 -->
+                 <div class="feature-card">
+                    <img src="Landing-assets/Landing-assets/All-Icons/Icon-users.svg" alt="Real-Time collaboration" class="features-icon">
+                    <p class="feature-desc">Work together seamlessly with shared workspaces, comments, file sharing, and instant updates.</p>
+                    <div class="feature-divider"></div>
+                    <h3 class="feature-name">Real-Time Collaboration</h3>
+                 </div>
+
+                <!-- Card 3  -->
+                 <div class="feature-card">
+                    <img src="Landing-assets/Landing-assets/All-Icons/Icon-Circle-chart.svg" alt="Analytics & Reporting" class="features-icon">
+                    <p class="feature-desc">Monitor project performance with real-time insights, custom reports, and progress dashboards.</p>
+                    <div class="feature-divider"></div>
+                    <h3 class="feature-name">Analytics & Reporting</h3>
+                 </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-banner">
+            <div class="cta-container">
+                <div class="cta-contant">
+                    <h2 class="cta-title">Let's Build Better Projects Together</h2>
+                    <p class="cta-desc">Bring your team, organize every task, and turn ideas into successful projects <br> with one powerful platform.</p>
+                    <a href="" class="btn-join">
+                        Join us
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+      </section>
+
+      <!-- Footer section -->
+       <footer class="footer">
+            <div class="footer-container">
+                <a href="" class="footer-logo">
+                    <img src="Landing-assets//Landing-assets/All-Logos/logo.svg" alt="Manag'it logo">
+                </a>
+
+                <ul class="footer-links">
+                    <li><a href="">Home</a></li>
+                    <li class="dot">&middot;</li>
+                    <li><a href="">About</a></li>
+                    <li class="dot">&middot;</li>
+                    <li><a href="">Features</a></li>
+                </ul>
+
+                <div class="footer-socails">
+                    <a href=""><img src="Landing-assets/Landing-assets/All-Icons/Icon-Facebook.svg" alt="Facebook"></a>
+                    <a href=""><img src="Landing-assets/Landing-assets/All-Icons/Icon-Instagram.svg" alt="Instagram"></a>
+                    <a href=""><img src="Landing-assets/Landing-assets/All-Icons/Icon-Linkedin.svg" alt="Linkedin"></a>
+                    <a href=""><img src="Landing-assets/Landing-assets/All-Icons/Icon-Whatsapp.svg" alt="Whatsapp"></a>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>Minimal & Clean</p>
+                    <p>&copy; 2026 Manag'it. Designed with clarity</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            const menuToggle = document.querySelector('#mobile-menu')
+            const navContent = document.querySelector('.nav-content')
+
+            if (menuToggle && navContent) {
+                menuToggle.addEventListener('click', () => {
+                    navContent.classList.toggle('active')
+                    menuToggle.classList.toggle('active')
+                })
+            }
+        </script>
+</body>
+</html>
