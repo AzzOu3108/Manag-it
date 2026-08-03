@@ -1,6 +1,6 @@
 import Button from "../ui/Button";
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ onCreateProject }) {
   return (
     <section className="mt-10">
       <h2 className="text-xl font-bold text-foreground">Active Projects</h2>
@@ -14,7 +14,7 @@ export default function ProjectsSection() {
         <p className="mt-1 text-xs text-muted-foreground">
           How about creating a project right now?
         </p>
-        <Button variant="primary" size="md" className="mt-5">
+        <Button variant="primary" size="md" className="mt-5" onClick={onCreateProject}>
           <img src="/assets/DashBoard-assets/Add-icon.svg" alt="" className="h-4 w-4" />
           Create a new project
         </Button>

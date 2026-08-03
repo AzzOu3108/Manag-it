@@ -23,14 +23,8 @@ export default function Dashboard({
         <StatGrid stats={stats} />
       </section>
 
-      <ProjectsSection 
-      projects={projects}
-      onCreateProject={onCreateProject}
-      onToggleTask={onToggleTask}
-      onAddTasks={onAddTasks}
-      onDeleteProject={onDeleteProject}
-      openMenuProjectId={openMenuProjectId}
-      onMenuOpenChange= {onMenuOpenChange}
+      <ProjectsSection
+        onCreateProject={onCreateProject}
       />
     </main>
   );
