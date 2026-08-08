@@ -2,8 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./components/dashboard/Dashboard";
-import DashboardNavbar from "./components/layout/DashboardNavbar";
+import DashboardPage from "./components/dashboard/DashboardPage";
 import NavBar from "./components/layout/NavBar";
 import Footer from "./components/layout/Footer";
 import "./styles/landing-layout.css";
@@ -25,15 +24,8 @@ export default function App() {
       />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route
-        path="/dashboard"
-        element={
-          <div className="min-h-screen bg-background font-display">
-            <DashboardNavbar />
-            <Dashboard />
-          </div>
-        }
-      />
+      {/* Dashboard is public for now — no login required */}
+      <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

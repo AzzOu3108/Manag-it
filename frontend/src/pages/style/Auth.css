@@ -169,6 +169,24 @@
   transform: scale(0.98);
 }
 
+/* Inline error shown above the submit button (login/signup failures) */
+.form-error {
+  margin: 0 0 4px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background-color: #fdecea;
+  border: 1px solid #f5c6c0;
+  color: #b3261e;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .auth-switch {
   text-align: center;
   margin-top: 24px;

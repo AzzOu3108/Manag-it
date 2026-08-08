@@ -1,12 +1,41 @@
-import { Link, useNavigate } from 'react-router-dom'
-import './style/Auth.css'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { api, setTokens, getErrorMessage } from "../lib/api";
+import "./style/Auth.css";
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    navigate('/dashboard')
+  // Controlled form state so the submit handler can read the values.
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      // POST /auth/login -> { accessToken, refreshToken, user }
+      const { data } = await api.post("/auth/login", { email, password });
+
+      // Only treat the login as successful when the backend actually
+      // returned tokens — otherwise (e.g. a proxy error page or a
+      // placeholder server) we'd navigate without being logged in.
+      if (!data?.accessToken || !data?.refreshToken) {
+        throw new Error("The server did not return a valid session.");
+      }
+
+      setTokens(data.accessToken, data.refreshToken);
+      navigate("/dashboard");
+    } catch (err) {
+      // Show the backend's message (e.g. "Invalid email or password").
+      setError(getErrorMessage(err, "Login failed. Check your email and password."));
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -40,14 +69,18 @@ function Login() {
               />
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <div className="input-wrapper">
                   <input
                     type="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Exemple@gmail.com"
+                    required
+                    autoComplete="email"
                   />
                 </div>
               </div>
@@ -58,7 +91,11 @@ function Login() {
                   <input
                     type="password"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="**************"
+                    required
+                    autoComplete="current-password"
                   />
                   <div className="input-icon">
                     <svg
@@ -76,8 +113,15 @@ function Login() {
                 </div>
               </div>
 
-              <button type="submit" className="btn-primary">
-                Login
+              {/* Backend / network errors land here */}
+              {error && (
+                <p role="alert" className="form-error">
+                  {error}
+                </p>
+              )}
+
+              <button type="submit" className="btn-primary" disabled={submitting}>
+                {submitting ? "Logging in..." : "Login"}
                 <svg
                   width="18"
                   height="18"
@@ -101,8 +145,7 @@ function Login() {
         </div>
       </div>
     </div>
-    
-  )
+  );
 }
 
-export default Login
+export default Login;

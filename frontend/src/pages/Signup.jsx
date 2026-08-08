@@ -1,12 +1,42 @@
-import { Link, useNavigate } from 'react-router-dom'
-import './style/Auth.css'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { api, setTokens, getErrorMessage } from "../lib/api";
+import "./style/Auth.css";
 
 function Signup() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    navigate('/dashboard')
+  // Controlled form state so the submit handler can read the values.
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+
+    // Client-side check before hitting the server.
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      // POST /auth/signup -> { accessToken, refreshToken, user }
+      // Signup auto-logs the user in, so we store the tokens right away.
+      const { data } = await api.post("/auth/signup", { fullName, email, password });
+      setTokens(data.accessToken, data.refreshToken);
+      navigate("/dashboard");
+    } catch (err) {
+      // Show the backend's message (e.g. "Email already registered").
+      setError(getErrorMessage(err, "Sign up failed. Please try again."));
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -40,14 +70,18 @@ function Signup() {
               />
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
               <div className="form-group">
                 <label htmlFor="fullname">Full Name</label>
                 <div className="input-wrapper">
                   <input
                     type="text"
                     id="fullname"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Name exemple"
+                    required
+                    autoComplete="name"
                   />
                 </div>
               </div>
@@ -58,7 +92,11 @@ function Signup() {
                   <input
                     type="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Exemple@gmail.com"
+                    required
+                    autoComplete="email"
                   />
                 </div>
               </div>
@@ -69,7 +107,11 @@ function Signup() {
                   <input
                     type="password"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="**************"
+                    required
+                    autoComplete="new-password"
                   />
                   <div className="input-icon">
                     <svg
@@ -93,7 +135,11 @@ function Signup() {
                   <input
                     type="password"
                     id="confirm-password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="**************"
+                    required
+                    autoComplete="new-password"
                   />
                   <div className="input-icon">
                     <svg
@@ -111,8 +157,15 @@ function Signup() {
                 </div>
               </div>
 
-              <button type="submit" className="btn-primary">
-                Sign up
+              {/* Backend / validation errors land here */}
+              {error && (
+                <p role="alert" className="form-error">
+                  {error}
+                </p>
+              )}
+
+              <button type="submit" className="btn-primary" disabled={submitting}>
+                {submitting ? "Creating account..." : "Sign up"}
                 <svg
                   width="18"
                   height="18"
@@ -136,7 +189,7 @@ function Signup() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Signup
+export default Signup;
