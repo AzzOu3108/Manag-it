@@ -4,6 +4,9 @@ const corsOptions = require('./config/corsOptions')
 const cors = require('cors')
 const helmet = require('helmet')
 const {apiLimiter} = require('./middleware/rateLimiter')
+const {logger} = require('./middleware/logger')
+const connectDB = require('./config/DB')
+const projectRouter = require('./routes/projectRouter.js')
 
 const app = express()
 
@@ -14,6 +17,8 @@ app.use(helmet())
 
 //Global rate limiting
 app.use(apiLimiter)
+
+app.use(logger)
 
 // CORS
 app.use(cors(corsOptions))
@@ -26,9 +31,21 @@ app.get('/api/health', (req, res) => {
     res.status(200).json({ message: 'Server is healthy' })
 })
 
+app.use("/api/projects", projectRouter)
+
 // 404 for unknown routes
 app.use((req, res) => {
     res.status(404).json({ error: `No route for ${req.method} ${req.originalUrl}`})
 })
  
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
+
+const startServer =  async() => {
+    try {
+        await connectDB()
+        app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
+    } catch (error) {
+        console.error("Unable to connect to the database:", error)
+    }
+}
+
+startServer()
