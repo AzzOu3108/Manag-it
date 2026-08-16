@@ -23,11 +23,11 @@ const taskSchema = new mongoose.Schema(
 
 const projectSchema = new mongoose.Schema(
     {
-        // owner: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "User",
-        //     required: true
-        // },
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
+        },
         title: {
             type: String,
             default: "",

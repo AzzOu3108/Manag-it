@@ -7,6 +7,9 @@ const {apiLimiter} = require('./middleware/rateLimiter')
 const {logger} = require('./middleware/logger')
 const connectDB = require('./config/DB')
 const projectRouter = require('./routes/projectRouter.js')
+const taskRouter = require('./routes/taskRouter.js')
+const authRouter = require('./routes/authRouter.js')
+const statsRouter = require('./routes/statsRouter.js')
 
 const app = express()
 
@@ -31,7 +34,11 @@ app.get('/api/health', (req, res) => {
     res.status(200).json({ message: 'Server is healthy' })
 })
 
-app.use("/api/projects", projectRouter)
+// API routes — all under /api to match the Vite dev proxy
+app.use("/api/auth", authRouter);
+app.use("/api/projects", projectRouter);
+app.use("/api/projects", taskRouter);
+app.use("/api/stats", statsRouter);
 
 // 404 for unknown routes
 app.use((req, res) => {
