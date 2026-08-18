@@ -34,7 +34,7 @@ import { mockAdapter } from "./mockApi";
  * (in-memory data, persisted in localStorage) so the app is fully
  * usable without a server.
  */
-const USE_MOCK_API = true;
+const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API === "true";
 
 /** Base URL: override with VITE_API_URL, otherwise hit the Vite dev proxy (/api). */
 const API_URL = import.meta.env.VITE_API_URL || "/api";
@@ -147,8 +147,8 @@ api.interceptors.response.use(
       return api(original); // retry the original request with the fresh token
     } catch (refreshError) {
       // Only bounce to /login when a session existed but could not be
-      // refreshed. With no session at all (public dashboard), the error
-      // just surfaces in the UI instead of redirecting.
+      // refreshed. With no session at all, the error just surfaces in
+      // the UI instead of redirecting.
       if (getRefreshToken()) redirectToLogin();
       return Promise.reject(refreshError);
     }

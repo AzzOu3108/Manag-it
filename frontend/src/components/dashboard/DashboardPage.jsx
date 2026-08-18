@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Check, X } from "lucide-react";
 import DashboardNavbar from "../layout/DashboardNavbar";
 import Dashboard from "./Dashboard";
 import CreateProjectFlow from "../CreateProjectFlow/CreateProjectFlow";
 import AddMoreTasksModal from "./AddMoreTasksModal";
 import useProjects from "../../hooks/useProjects";
-import api, { getErrorMessage } from "../../lib/api";
+import { getErrorMessage } from "../../lib/api";
 
 export default function DashboardPage() {
   const { projects, loading, error, refresh, createProject, toggleTask, appendTasks, deleteProject } =
@@ -16,30 +16,20 @@ export default function DashboardPage() {
   const [openMenuProjectId, setOpenMenuProjectId] = useState(null);
   const [toast, setToast] = useState(null);
 
-  // Overview numbers come from the backend (GET /stats), not from math
-  // on the client, so the cards reflect server-side truth.
-  const [stats, setStats] = useState({ totalProjects: 0, completedTasks: 0, pendingTasks: 0 });
-  const [statsLoading, setStatsLoading] = useState(true);
-
-  // Load the overview stats once on mount. Stats are non-critical:
-  // if this call fails, the cards just stay at 0 and the page still works.
-  useEffect(() => {
-    let cancelled = false;
-    async function loadStats() {
-      try {
-        const { data } = await api.get("/stats");
-        if (!cancelled) setStats(data);
-      } catch {
-        // Ignored on purpose — projects still render below.
-      } finally {
-        if (!cancelled) setStatsLoading(false);
+  // Derived from `projects` (already kept in sync by useProjects after every
+  // create/toggle/append/delete), so the cards never go stale like a
+  // one-shot GET /stats fetched only on mount would.
+  const stats = useMemo(() => {
+    let completedTasks = 0;
+    let pendingTasks = 0;
+    for (const project of projects) {
+      for (const task of project.tasks) {
+        if (task.completed) completedTasks += 1;
+        else pendingTasks += 1;
       }
     }
-    loadStats();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    return { totalProjects: projects.length, completedTasks, pendingTasks };
+  }, [projects]);
 
   // Auto-dismiss the toast after a few seconds.
   useEffect(() => {
@@ -120,7 +110,7 @@ export default function DashboardPage() {
         projectsError={error}
         onRetryProjects={refresh}
         stats={stats}
-        statsLoading={statsLoading}
+        statsLoading={loading}
         onCreateProject={() => setFlowOpen(true)}
         onToggleTask={handleToggleTask}
         onAddTasks={setAddTasksProjectId}

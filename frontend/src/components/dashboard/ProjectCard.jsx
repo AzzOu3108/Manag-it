@@ -102,7 +102,7 @@ export default function ProjectCard({
         <div className="relative w-1 shrink-0 self-stretch rounded-full bg-primary/15">
           {progress > 0 && (
             <div
-              className="absolute bottom-0 left-0 right-0 rounded-full bg-gradient-to-t from-primary to-primary/40 transition-[height] duration-300 ease-out motion-reduce:transition-none"
+              className="absolute bottom-0 left-0 right-0 rounded-full bg-linear-to-t from-primary to-primary/40 transition-[height] duration-300 ease-out motion-reduce:transition-none"
               style={{ height: `${Math.max(progress * 100, 6)}%` }}
             >
               <span className="absolute -top-1 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-surface bg-primary" />

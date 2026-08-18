@@ -10,6 +10,9 @@ const BACKEND_URL = "http://localhost:3000";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
+    port: 5173,
+    strictPort: true, // fail loudly instead of silently drifting to another
+                       // port, which would break the backend's CORS allowlist
     proxy: {
       "/api": {
         target: BACKEND_URL,

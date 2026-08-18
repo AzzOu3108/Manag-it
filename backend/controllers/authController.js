@@ -10,7 +10,7 @@ const { builtinModules } = require('node:module')
 const hashToken = (token) => crypto.createHash("sha256").update(token).digest("hex")
 
 // the user shape the frontend expects {id, fullname, email}
-const publicUser = (user) => ({id: user.id, fullname: user.fullName, email: user.email})
+const publicUser = (user) => ({id: user.id, fullName: user.fullName, email: user.email})
 
 // issue an access + refresh pair and store the refresh token (hashed)
 const issueTokens = async (user) => {
